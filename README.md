@@ -107,7 +107,35 @@
  //上記と同じコード
  });
  ```
+ ---
+
+### 4-2. Javascriptでのmagnify backgroundSize
+ 最初は下記のようにコードを作成したら、適用ができなかった
  
+ ```javascript
+ magnify.style.backgroundSize = `${targetWidth} * ${zoom}px + ${targetHeight} * ${zoom}px`;
+ ```
+ <img src="https://user-images.githubusercontent.com/89200643/239317365-fb9644f9-8f67-4d39-8e1b-a2c35d9710c5.png">
+ </br>
+ </br>
+ 考えてみれば、簡単な理由だったけど、なぜかここで時間が少しかかった。</br>
+ +は要らなかったので、正しく直したのが下記の部分だ。
+ </br> 
+ </br> 
+  
+```javascript
+ magnify.style.backgroundSize = `${targetWidth * zoom}px ${targetHeight * zoom}px`;
+ ```
+ <img src="https://user-images.githubusercontent.com/89200643/239317638-9d7c3984-9042-4500-8322-d4085c1911f0.png">
+ </br> 
+ </br>
+ ⬆コードを再確認したら、、無くても普通に問題なく作動できるけど、、、😅
+ 
+ ---
+ 
+ ### 4-3. ファイルの絶対パス・相対パス
+ Github Pagesから設定してサイト開いたら、イメージが見えない問題が出た。</br>
+ 一人でVS Codeを使っていつもライブで確認したので、この問題に気づかなかったので即直した。
  
   </div>
 </details>
