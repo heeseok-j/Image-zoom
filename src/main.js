@@ -11,7 +11,7 @@ const wrap = document.querySelector(".wrap");
 const magnify = document.createElement("div");
 magnify.className = "magnifier";
 // css 追加
-magnify.style.backgroundImage = "url(/img/picture.png)";
+magnify.style.backgroundImage = "url(./img/picture.png)";
 magnify.style.backgroundRepeat = "no-repeat";
 // zoom拡大率
 magnify.style.backgroundSize = `${targetWidth * zoom}px ${
