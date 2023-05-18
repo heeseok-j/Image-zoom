@@ -46,6 +46,67 @@
 <details>
 <summary><b>問題点と改善</b></summary>
 <div markdown="1">
+ 
+### 4-1. イベントハンドラー
+ 
+ 最初はイメージ(target)に直接ハンドラーしたらマウスポインターが拡大鏡から離れないと次に動かない問題がありました。</br>
+ 
+ ```javascript
+ target.addEventListener("mousemove", (e) => {
+  // mouse位置からmagnifyを引いて、マウス座標を得る
+  const targetRect = target.getBoundingClientRect();
+  const mouseX = e.clientX - targetRect.left;
+  const mouseY = e.clientY - targetRect.top;
+
+  const eTargetWidth = target.clientWidth;
+  const eTargetHeight = target.clientHeight;
+
+  const magnifierWidth = magnifier.clientWidth;
+  const magnifierHeight = magnifier.clientHeight;
+
+  // mouseがtargetから離れたら
+  if (
+    mouseX < eTargetWidth &&
+    mouseY < eTargetHeight &&
+    mouseX > 0 &&
+    mouseY > 0
+  ) {
+    magnifier.style.display = "block";
+  } else {
+    magnifier.style.display = "none";
+  }
+
+  //　拡大鏡が存在するなら
+  if (magnifier.style.display === "block") {
+    // 3
+
+    // 既にbackground-sizeからイメージが拡大されているため、マウスポインターも倍率設定
+    const eMagnificationX = -(mouseX * zoom - magnifierWidth / 2);
+    const eMagnificationY = -(mouseY * zoom - magnifierHeight / 2);
+
+    // 拡大鏡のセンター
+    const magnifierCenterX = mouseX - magnifierWidth / 2;
+    const magnifierCenterY = mouseY - magnifierHeight / 2;
+
+    // 拡大鏡に設定
+    magnifier.style.left = `${magnifierCenterX}px`;
+    magnifier.style.top = `${magnifierCenterY}px`;
+    magnifier.style.backgroundPosition = `${eMagnificationX}px ${eMagnificationY}px`;
+  }
+});
+
+ ```
+ 
+ なぜtargetには動きが正しく作動できないかはわからない状態ですが、</br>
+ これを直すためにtargetじゃなくてwrapにイベントハンドラーしたら解決できました。
+ 
+ ```javascript
+ wrap.addEventListener("mousemove", () => {
+ //上記と同じコード
+ });
+ ```
+ 
+ 
   </div>
 </details>
 
